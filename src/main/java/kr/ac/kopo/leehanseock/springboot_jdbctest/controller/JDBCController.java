@@ -20,6 +20,7 @@ public class JDBCController {
     public String requestMethod(Model model) {
         String sql = "select * from person";
         List<Person> personList= jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Person.class));
+        System.out.println("personList : " + personList);
         model.addAttribute("personList",personList);
         return "viewPage01";
     }
