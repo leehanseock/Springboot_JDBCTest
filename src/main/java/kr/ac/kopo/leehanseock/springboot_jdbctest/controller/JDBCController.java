@@ -6,10 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,6 +38,29 @@ public class JDBCController {
             //jdbcTemplate.update(sql, person.getName(), person.getAge(), person.getEmail());
             Object[] params = {person.getName(), person.getAge(), person.getEmail()};
             int resultCount = jdbcTemplate.update(sql, params);
+        return "redirect:/exam01";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editMethod(@PathVariable(name="id") int id, Model model) {
+        String sql = "select * from person where id = ?";
+        Person person = jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Person.class), id);
+        model.addAttribute("person", person);
+        return "viewPage01_edit";
+    }
+
+    @PostMapping("/update")
+    public String updateMethod(@ModelAttribute("Person") Person person) {
+        String sql = "update person set name = ?, age = ?, email = ? where id = ?";
+        Object[] params = {person.getName(), person.getAge(), person.getEmail(), person.getId()};
+        int resultCount = jdbcTemplate.update(sql, params);
+        return "redirect:/exam01";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteMethod(@PathVariable(name="id") int id) {
+        String sql = "delete from person where id = ?";
+        int resultCount = jdbcTemplate.update(sql, id);
         return "redirect:/exam01";
     }
 }
