@@ -17,7 +17,7 @@ public interface MemberRepository03 extends JpaRepository<Member, Integer> {
 
     @Transactional
     @Query(value = "SELECT entity FROM Member entity WHERE id = :e_id")
-    public List<Member> selectMethodById(@Param("e_id") int id);
+    public Member selectMethodById(@Param("e_id") int id);
 
     @Transactional
     @Modifying

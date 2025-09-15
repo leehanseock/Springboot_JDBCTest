@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Member 데이터 수정(update)</title>
+</head>
+<body>
+<div align="center">
+  <h3>Update Member Data</h3>
+  <br>
+  <form action = "#" th:action = "@{/exam04/update}" th:object="${member}" method = "post">
+    <table border="1" cellpadding="10">
+      <tr th:each="member : ${memberList}">
+      <tr>
+        <th>ID</th>
+        <td><input type="text" th:field="*{id}" readonly></td>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <td><input type="text" th:field="*{name}"></td>
+      </tr>
+      <tr>
+        <th>Age</th>
+        <td><input type="text" th:field="*{age}"></td>
+      </tr>
+      <tr>
+        <th>E-mail</th>
+        <td><input type="text" th:field="*{email}"></td>
+      </tr>
+      <tr>
+        <td colspan="2"><button type="submit+">Edit</button></td>
+      </tr>
+      </tr>
+    </table>
+  </form>
+</div>
+</body>
+</html>
